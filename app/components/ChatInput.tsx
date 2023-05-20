@@ -2,7 +2,7 @@
 import { InputProps } from "../interfaces/InputProps";
 import useState  from 'react-usestateref';
 
-export const ChatInput = ({ onSend, disabled}: InputProps) => {
+ const ChatInput = ({ onSend, disabled}: InputProps) => {
     const [input, setInput] = useState('');
   
     const sendInput = () => {
@@ -56,3 +56,5 @@ export const ChatInput = ({ onSend, disabled}: InputProps) => {
         </div>
       );
   };
+
+  export default ChatInput;

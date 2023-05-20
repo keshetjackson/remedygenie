@@ -1,30 +1,17 @@
 "use client"
 import useState  from 'react-usestateref';
-import { ChatInput } from '../components/ChatInput';
-import { ChatMessage } from '../components/ChatMessage';
+import  ChatInput  from '../components/ChatInput';
+import  ChatMessage  from '../components/ChatMessage';
 import { MessageProps,Creator } from '../interfaces/MessageProps';
 import { useEffect, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+
 
 const url = '/api/genie'
 
-export const Chat = () => { 
+ const Chat = () => { 
   const [messages, setMessages, messageRef] = useState<MessageProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [counter, setCounter, counterRef] = useState(0); 
-  const { user } = useContext(AuthContext);
-
-//   useEffect(() => {
-//     callApi(`you are a homeophatic doctor who has all the information
-//     availiable about homephatic and remedies.
-//     act like im youre patient, like a real homeophatic doctor will act,
-//     in youre first prompt introduce yourself,
-//     youre goal is to find to best remedy,
-//     you have a maximum of 8 questions
-//     use as many follow up question as needed but ask only one single question at each prompt.
-//     start by introducing yourself.
-//     ${user ? `client name is ${user.displayName}` : ``}`)
-//   }, [])
 
   useEffect(() => {
     callApi(`you are a homeophatic doctor who has all the information
@@ -34,9 +21,9 @@ export const Chat = () => {
     youre goal is to find to best remedy,
     you have a maximum of 8 questions
     use as many follow up question as needed but ask only one single question at each prompt.
-    start by introducing yourself.
-    ${user ? `client name is ${user.displayName}` : ``}`)
-  }, [user])
+    start by introducing yourself.`)
+  }, [])
+
 
   useEffect(() => {
     console.log(messageRef.current);
@@ -102,4 +89,6 @@ export const Chat = () => {
     </main>
   );
   };
+
+  export default Chat;
 

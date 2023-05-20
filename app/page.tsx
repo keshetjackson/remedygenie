@@ -1,15 +1,26 @@
-import AuthProvider from "./provider/AuthProvider";
-import withAuth from "./withAuth";
-import { Chat } from "./components/Chat";
 
-const AuthenticatedChat = withAuth(Chat);
+import React from "react";
+import Chat from "./components/Chat";
 
-export const Home = () => {
-   
+
+
+
+
+export const Home  = () => {
+  
+//   initFirebase();
+//   const provider = new GoogleAuthProvider();
+//   const auth = getAuth();
+
+//   const signIn = async () => {
+//     const result = await signInWithPopup(auth, provider, )
+
+// }
 
   return (
-  <AuthProvider>
-    <AuthenticatedChat/>
-  </AuthProvider>
+    <>
+    <Chat/>
+    </>   
   )
 }
+export default Home;

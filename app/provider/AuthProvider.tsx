@@ -1,27 +1,4 @@
-"use client"
-import React, { FC, useEffect, useState, ReactNode } from 'react';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
-import { AuthContext } from '../context/AuthContext';
+// import { GoogleAuthProvider } from "firebase/auth";
 
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const auth = getAuth();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-    });
-
-    return unsubscribe;
-  }, [auth]);
-
-  const value = { user };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-};
-
-export default AuthProvider;
+// const provider = new GoogleAuthProvider();
+// provider.setCustomParameters({ prompt: "select_account" });

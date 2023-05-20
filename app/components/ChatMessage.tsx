@@ -6,7 +6,7 @@ const botImg = '/bot-img.png';
 import { MessageProps,Creator } from "../interfaces/MessageProps";
 
 
-export const ChatMessage = ({ content, role }: MessageProps) => {
+ const ChatMessage = ({ content, role }: MessageProps) => {
     return(
     <>
       {
@@ -25,4 +25,6 @@ export const ChatMessage = ({ content, role }: MessageProps) => {
         )}
     </>
     )
-  }
+  };
+
+  export default ChatMessage;

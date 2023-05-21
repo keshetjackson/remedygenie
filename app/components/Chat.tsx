@@ -6,6 +6,7 @@ import { MessageProps,Creator } from '../interfaces/MessageProps';
 import { useEffect, useContext } from 'react';
 
 
+
 const url = '/api/genie'
 
  const Chat = () => { 

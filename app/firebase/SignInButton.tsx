@@ -1,57 +1,21 @@
-// import { getAuth, signInWithPopup, GoogleAuthProvider, User } from 'firebase/auth';
-// import { useEffect, useState } from 'react';
-// import firebase_app from './firebaseApp';
+"use client"
+import { useAuthContext } from "../context/AuthContext";
+import { initFirebase } from "./firebaseApp";
+import {getAuth, GoogleAuthProvider, signInWithPopup, Auth} from "firebase/auth";
+import { GetServerSideProps } from "next";
 
-// const useUser = () => {
-//   const [user, setUser] = useState<User | null>(null);
+const SignInButton = () => {
+  initFirebase();
+  const provider = new GoogleAuthProvider();
+  const auth = useAuthContext();
 
-//   useEffect(() => {
-//     const auth = getAuth();
-//     const unsubscribe = firebase_app onAuthStateChanged((authUser) => {
-//       if (authUser) {
-//         setUser(authUser);
-//       } else {
-//         setUser(null);
-//       }
-//     });
+  const signIn = async () => {
+    const result = await signInWithPopup(auth?.auth as Auth, provider)
+    console.log(result.user)
+  }
+  return (
+    <button onClick={() => signIn}>sign in</button>
+  )
+}
 
-//     return () => {
-//       unsubscribe();
-//     };
-//   }, []);
-
-//   return user;
-// };
-
-// const SignInButton: React.FC = () => {
-//   const auth = getAuth();
-//   const provider = new GoogleAuthProvider();
-
-//   const signInWithGoogle = async () => {
-//     try {
-//       await signInWithPopup(auth, provider);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   return (
-//     <button onClick={signInWithGoogle}>Sign in with Google</button>
-//   );
-// };
-
-// const MyApp: React.FC = () => {
-//   const user = useUser();
-
-//   return (
-//     <div>
-//       {user ? (
-//         <p>Welcome, {user.displayName}!</p>
-//       ) : (
-//         <SignInButton />
-//       )}
-//     </div>
-//   );
-// };
-
-// export default MyApp;
+export default SignInButton;

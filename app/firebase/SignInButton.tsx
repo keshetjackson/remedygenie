@@ -1,19 +1,29 @@
 "use client"
 import { auth  } from "./firebaseApp";
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
-import { GetServerSideProps } from "next";
+import { useDispatch } from "react-redux";
+import { loginRequest,loginSuccess,loginFailure } from "../redux/authSlice";
 
 const SignInButton = () => {
 
   const provider = new GoogleAuthProvider();
+  const dispatch = useDispatch();
 
 
   const signIn = async () => {
-    const result = await signInWithPopup(auth, provider)
-    console.log(result.user)
-  }
+      try {
+        const userCredential = await signInWithPopup(auth, provider);
+        const user = userCredential.user;
+        dispatch(loginSuccess({ uid: user.uid, email: user.email, displayName: user.displayName }));        console.log(`login success for use ${user}`);
+      } catch (error : any  ) {
+        dispatch(loginFailure(error.message));
+        console.log('Failed to sign in:', error);
+    }
+    
+  };
+  
   return (
-    <button onClick={() => signIn}>sign in</button>
+    <button onClick={signIn}>sign in</button>
   )
 }
 

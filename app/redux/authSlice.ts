@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { User } from 'firebase/auth'; 
+import { User } from '../interfaces/User';
 
 interface AuthState {
   isLoggingIn: boolean;

@@ -41,7 +41,6 @@
         })
 
         const response : string = completion.data.choices[0].message?.content as string;
-        console.log(messages);
         res.status(200).json({text : response});
     }
 

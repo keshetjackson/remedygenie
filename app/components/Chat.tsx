@@ -24,11 +24,6 @@ const url = '/api/genie'
     use as many follow up question as needed but ask only one single question at each prompt.
     start by introducing yourself.`)
   }, [])
-
-
-  useEffect(() => {
-    console.log(messageRef.current);
-  }, [messageRef.current]);
   
 
   const callApi = async (input: string) => {

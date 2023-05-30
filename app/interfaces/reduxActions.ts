@@ -1,4 +1,4 @@
-import { User } from "firebase/auth";
+import { User } from "./User";
 
 export interface LoginAction {
     type: 'LOGIN';

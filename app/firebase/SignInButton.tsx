@@ -1,16 +1,15 @@
 "use client"
-import { useAuthContext } from "../context/AuthContext";
-import { initFirebase } from "./firebaseApp";
-import {getAuth, GoogleAuthProvider, signInWithPopup, Auth} from "firebase/auth";
+import { auth  } from "./firebaseApp";
+import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { GetServerSideProps } from "next";
 
 const SignInButton = () => {
-  initFirebase();
+
   const provider = new GoogleAuthProvider();
-  const auth = useAuthContext();
+
 
   const signIn = async () => {
-    const result = await signInWithPopup(auth?.auth as Auth, provider)
+    const result = await signInWithPopup(auth, provider)
     console.log(result.user)
   }
   return (

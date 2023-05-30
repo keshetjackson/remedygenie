@@ -1,6 +1,5 @@
-import {initializeApp, getApps } from "firebase/app"
-import dotenv from 'dotenv';
-    dotenv.config();
+import {initializeApp, getApps } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,8 +12,5 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const firebase_app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]; //init firebase
-
-export const initFirebase = () => {
-    return firebase_app;
-}
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);

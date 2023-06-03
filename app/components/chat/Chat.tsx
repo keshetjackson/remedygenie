@@ -1,8 +1,8 @@
 "use client"
 import useState  from 'react-usestateref';
-import  ChatInput  from '../components/ChatInput';
-import  ChatMessage  from '../components/ChatMessage';
-import { MessageProps,Creator } from '../interfaces/MessageProps';
+import  ChatInput  from './ChatInput';
+import  ChatMessage  from './ChatMessage';
+import { MessageProps,Creator } from '../../interfaces/MessageProps';
 import { useEffect, useContext } from 'react';
 
 
@@ -13,17 +13,18 @@ const url = '/api/genie'
   const [messages, setMessages, messageRef] = useState<MessageProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [counter, setCounter, counterRef] = useState(0); 
-
-  useEffect(() => {
-    callApi(`you are a homeophatic doctor who has all the information
-    availiable about homephatic and remedies.
-    act like im youre patient, like a real homeophatic doctor will act,
-    in youre first prompt introduce yourself,
-    youre goal is to find to best remedy,
-    you have a maximum of 8 questions
-    use as many follow up question as needed but ask only one single question at each prompt.
-    start by introducing yourself.`)
-  }, [])
+  
+//deactivated to save the prompt cost
+  // useEffect(() => {
+  //   callApi(`you are a homeophatic doctor who has all the information
+  //   availiable about homephatic and remedies.
+  //   act like im youre patient, like a real homeophatic doctor will act,
+  //   in youre first prompt introduce yourself,
+  //   youre goal is to find to best remedy,
+  //   you have a maximum of 8 questions
+  //   use as many follow up question as needed but ask only one single question at each prompt.
+  //   start by introducing yourself.`)
+  // }, [])
   
 
   const callApi = async (input: string) => {

@@ -1,8 +1,6 @@
 
 import React from "react";
-import Chat from "./components/Chat";
-import SignInButton from "./firebase/SignInButton";
-
+import Chat from "./components/chat/Chat";
 export const Home  = () => {
 
 
@@ -10,7 +8,6 @@ export const Home  = () => {
 
   return (
     <>
-    <SignInButton/>
     <Chat/>
     </>   
   )

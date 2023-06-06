@@ -3,8 +3,7 @@ import { auth, db} from "./firebaseApp";
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { loginRequest,loginSuccess,loginFailure } from "../redux/authSlice";
-import { store } from "../redux/store";
-import { addDoc, collection, getDocs,doc, getDoc } from "firebase/firestore";
+import { getUserDoc } from "../repository/usersRepo";
 
 
 const SignInButton = () => {
@@ -14,20 +13,19 @@ const SignInButton = () => {
 
 
   const signIn = async () => {
+    dispatch(loginRequest());
       try {
         const userCredential = await signInWithPopup(auth, provider);
         const user = userCredential.user;
-        let docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
-        docSnap.exists() ? docRef = docRef :( 
-          docRef = await addDoc(collection(db, "users"), {
-          email: user.email,
-          name: user.displayName,
-          photoUrl: user.photoURL,
-          provider: user.providerId,
-          uid: user.uid
-        }));
-        dispatch(loginSuccess({ uid: user.uid, email: user.email, displayName: user.displayName , dbDocRef: docRef}));
+        const userData = await getUserDoc(user);
+        dispatch(loginSuccess({ 
+          uid: user.uid,
+           email: user.email, 
+           displayName: user.displayName ,
+           docRef: userData.docRef,
+           isSubscribed: userData.isSubscribed,
+           provider: userData.provider
+          }));
         console.log(`login success for user :  ${user}`);
       } catch (error : any  ) {
         dispatch(loginFailure(error.message));

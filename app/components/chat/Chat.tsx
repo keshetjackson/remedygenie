@@ -4,8 +4,13 @@ import  ChatInput  from './ChatInput';
 import  ChatMessage  from './ChatMessage';
 import { MessageProps,Creator } from '../../interfaces/MessageProps';
 import { useEffect, useContext } from 'react';
+import { Connect } from 'react-redux';
+import { connect } from 'http2';
+import { useSelector } from 'react-redux';
 
-
+// const enhance = connect(
+//   ({})
+// )
 
 const url = '/api/genie'
 

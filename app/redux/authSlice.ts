@@ -39,10 +39,22 @@ export const authSlice = createSlice({
       state.isLoggedIn = false;
       state.user = null;
       state.error = null;
+    },
+    updateSubscription: (state, action: PayloadAction<boolean>) => {
+       if(state.user){
+        state.user.isSubscribed = action.payload;
+       }
     }
   },
 });
 
-export const { loginRequest, loginSuccess, loginFailure, logout } = authSlice.actions;
+export const { loginRequest, loginSuccess, loginFailure, logout, updateSubscription } = authSlice.actions;
+
+export const selectUserName = ({user} : AuthState) => user?.displayName;
+export const selectUserEmail = ({user} : AuthState) => user?.email;
+export const selectUserDocRef = ({user} : AuthState) => user?.docRef;
+export const selectUserUid = ({user} : AuthState) => user?.uid;
+export const selectSubscription = ({user} : AuthState) => user?.isSubscribed;
+
 
 export default authSlice.reducer;

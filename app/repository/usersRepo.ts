@@ -1,28 +1,34 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { db } from "../firebase/firebaseApp";
-import { User } from "../interfaces/User";
+import { db } from "../firebase";
+import { User } from "../interfaces";
 
-
-export async function getUserDoc(user : any) {
+class UserRepository {
+  async getUserDoc(user : any): Promise<User> {
     const userDocRef = doc(db, "users", user.uid);
   
-    let userDocData = null;
-    
     const userDoc = await getDoc(userDocRef);
     if (userDoc.exists()) {
-      userDocData = userDoc.data();
+      return userDoc.data() as User;
     } else {
-      userDocData = {
-        email: user.email,
-        name: user.displayName,
-        provider: user.providerId,
-        uid: user.uid,
-        docRef: userDocRef,
-        isSubscribed: false // Default to false if the user document doesn't exist yet
-      };
-      await setDoc(userDocRef, userDocData, {merge:true});
+      return this.createUserDoc(user);
     }
-  
-    return userDocData as User;
   }
+
+  async createUserDoc(user: any): Promise<User> {
+    const userDocRef = doc(db, "users", user.uid);
   
+    const userDocData = {
+      email: user.email,
+      displayName: user.displayName,
+      provider: user.providerId,
+      uid: user.uid,
+      isSubscribed: false // Default to false if the user document doesn't exist yet
+    };
+  
+    await setDoc(userDocRef, userDocData, {merge:true});
+
+    return userDocData;
+  }
+}
+
+export const userRepository = new UserRepository();

@@ -2,43 +2,32 @@
 import { auth, db} from "./firebaseApp";
 import {GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { loginRequest,loginSuccess,loginFailure } from "../redux/authSlice";
-import { getUserDoc } from "../repository/usersRepo";
+import { loginRequest,loginSuccess,loginFailure, loginUser } from "../redux/authSlice";
+import { AppDispatch, store } from "../redux/store";
+import { addDoc, collection, getDocs,doc, getDoc } from "firebase/firestore";
 
 
 const SignInButton = () => {
 
   const provider = new GoogleAuthProvider();
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch<AppDispatch>(); // Use typed useDispatch
 
   const signIn = async () => {
     dispatch(loginRequest());
       try {
         const userCredential = await signInWithPopup(auth, provider);
         const user = userCredential.user;
-        const userData = await getUserDoc(user);
-        dispatch(loginSuccess({ 
-          uid: user.uid,
-           email: user.email, 
-           displayName: user.displayName ,
-           docRef: userData.docRef,
-           isSubscribed: userData.isSubscribed,
-           provider: userData.provider
-          }));
+        // Dispatch the loginUser thunk with the user object
+        dispatch(loginUser(user));
         console.log(`login success for user :  ${user}`);
       } catch (error : any  ) {
-        dispatch(loginFailure(error.message));
         console.log('Failed to sign in:', error);
     }
-    
   };
 
-  
-  
   return (
     <>
-    <button onClick={signIn}>sign in</button>
+      <button onClick={signIn}>Sign in</button>
     </>
   )
 }
